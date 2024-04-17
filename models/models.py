@@ -18,6 +18,7 @@ users = Table(
     Column('id', Integer, primary_key=True, autoincrement=True),
     Column('name', VARCHAR(255), nullable=False),
     Column('email', VARCHAR(255), nullable=False),
+    Column('phone', VARCHAR(50), nullable=True),
     Column('password', String, nullable=False),
     Column('registered_at', TIMESTAMP, default=datetime.utcnow),
     Column('role_id', Integer, ForeignKey('roles.id'))
