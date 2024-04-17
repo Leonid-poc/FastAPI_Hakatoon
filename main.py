@@ -15,6 +15,3 @@ app = fastapi.FastAPI(title="Testing")
 def testing(user: User):
     return f'name - {user.name}, age - {user.age}, email - {user.email}'
 
-# testing
-# testing 2
-# testing 3
