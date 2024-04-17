@@ -1,17 +1,32 @@
 from pydantic import BaseModel
 from typing import List, Optional
+from fastapi_users import FastAPIUsers
 import fastapi
+from auth.auth import auth_backend
+from auth.database import User
+from auth.manager import get_user_manager
+from auth.schema import UserCreate, UserRead
 
-q = List[str]
-
-class User(BaseModel):
-    name: str
-    age: int
-    email: Optional[str]
+fastapi_users = FastAPIUsers[User, int](
+    get_user_manager,
+    [auth_backend]
+)
 
 app = fastapi.FastAPI(title="Testing")
 
-@app.post('/')
-def testing(user: User):
-    return f'name - {user.name}, age - {user.age}, email - {user.email}'
+app.include_router(
+    fastapi_users.get_auth_router(auth_backend),
+    tags=['auth'],
+    prefix='/auth/jwt'
+)
+app.include_router(
+    fastapi_users.get_register_router(UserRead, UserCreate),
+    prefix='/auth',
+    tags=['auth']
+)
 
+current_user = fastapi_users.current_user()
+
+@app.get('/protected')
+def protected(user: User = fastapi.Depends(current_user)):
+    return user
