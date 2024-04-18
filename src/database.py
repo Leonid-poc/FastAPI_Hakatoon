@@ -7,7 +7,7 @@ from fastapi_users.db import SQLAlchemyBaseUserTable, SQLAlchemyUserDatabase
 from sqlalchemy.ext.asyncio import AsyncSession, async_sessionmaker, create_async_engine
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import DeclarativeBase
-from models.models import role
+from src.auth.models import role
 
 DATABASE_URL = "postgresql+asyncpg://postgres:1234@localhost:5432/Hakaton"
 

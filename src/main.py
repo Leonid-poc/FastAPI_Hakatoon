@@ -3,7 +3,7 @@ from typing import List, Optional
 from fastapi_users import FastAPIUsers
 import fastapi
 from auth.auth import auth_backend
-from auth.database import User
+from database import User
 from auth.manager import get_user_manager
 from auth.schema import UserCreate, UserRead
 
